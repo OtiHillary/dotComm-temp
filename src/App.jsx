@@ -12,7 +12,6 @@ function App() {
   const layoutElem = (jsxElem) => <Layout>{jsxElem}</Layout>
   const noLayoutElem = (jsxElem) => <NoLayout>{jsxElem}</NoLayout>
 
-
   return (
     <>
       <Router>
@@ -20,6 +19,7 @@ function App() {
               <Route path="/" element={ layoutElem(<Home />) } />
               <Route path="/cart" element={ layoutElem(<Checkout />) } />
               <Route path="/contact" element={ layoutElem(<Contact />) } />              
+              <Route path="/checkout" element={ layoutElem(<Checkout />) } />              
               <Route path="/login" element={ noLayoutElem(<Login />) } />
           </Routes>
       </Router>  

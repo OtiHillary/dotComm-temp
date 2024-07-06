@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Truck, Paypal, SmsTracking, Message2, User,  ArrowRight2, ShoppingCart, MessageQuestion, SearchNormal } from 'iconsax-react'
 
@@ -6,6 +6,7 @@ export default function Navbar() {
   const [openMenu, setOpenMenu] = useState(false);
   const [accDropdown, setAccDropdown] = useState(false);
   const [helpDropdown, setHelpDropdown] = useState(false);
+  const [cartCount, setCartCount] = useState(0)
 
   const toggleMenu = () => setOpenMenu(!openMenu);
   const toggleAccDropdown = () => {
@@ -16,6 +17,24 @@ export default function Navbar() {
     setHelpDropdown(!helpDropdown) 
     setAccDropdown(false)
   };
+
+  useEffect(() => {
+    fetch('https://fakestoreapi.com/carts/user/2')
+    .then(res => res.json())
+    .then(cartData => cartData[0].products.map(product =>
+          fetch(`https://fakestoreapi.com/products/${product.productId}`))
+    )
+    .then(productFetches => {
+      Promise.all(productFetches)
+      .then(productResponses => {
+        return Promise.all(productResponses.map(response => response.json()));
+      })
+      .then(products => {
+          console.log(products)
+          setCartCount( products.length ) // Example usage
+      })
+    })
+  }, [])
 
   return (
    <nav className="bg-gray-800 bg-opacity-25 backdrop-blur-sm fixed w-full top-0 z-50 border-b border-white border-opacity-10">
@@ -112,10 +131,13 @@ export default function Navbar() {
             }
           </li>
           <li className="mr-3 relative">
-            <a href="#" className="text-white hover:text-gray-400 flex">
+            <a href="/checkout" className="text-white hover:text-gray-400 flex">
               <ShoppingCart size="24" color="#FF8A65" variant="Outline" className='my-auto me-2'/>
               Cart
             </a>
+            <div style={{ lineHeight: 0 }} className={ `${ cartCount == 0? 'invisible': 'visible' } p-[0.6rem] w-2 h-2 rounded-full flex justify-center bg-red-500 text-center text-white absolute -top-1 -right-5 text-xs font-bold` }>
+              {cartCount}
+            </div>
           </li>
         </ul>
 

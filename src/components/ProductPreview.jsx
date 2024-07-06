@@ -89,9 +89,9 @@ export default function ProductPreview () {
    return (
       <section className="flex h-[70vh] w-[95%] m-auto mt-[57px]">
          <div className="flex justify-evenly h-[90%] w-full m-auto relative">
-            <div className="min-h-[40%] w-[20%] mb-auto bg-gray-800 bg-opacity-15 backdrop-blur-sm border border-white border-opacity-20 rounded-xl flex flex-col justify-start relative">
-               <p className="m-4 font-bold text-xl border-s-2 border-[#FF8A65] text-white ps-6">Categories</p>
-               <ul className="px-4 flex flex-col">
+            <div className="p-4 w-[20%] mb-auto bg-gray-800 bg-opacity-15 backdrop-blur-sm border border-white border-opacity-20 rounded-xl flex flex-col justify-start relative">
+               <p className="font-bold text-xl border-s-2 border-[#FF8A65] text-white ps-6">Categories</p>
+               <ul className="pt-2 flex flex-col">
                   {
                      categories.map((index, key) => {
                         return(
@@ -107,7 +107,7 @@ export default function ProductPreview () {
             <div className={`h-full w-[50%] bg-gray-800 bg-opacity-15 backdrop-blur-sm border overflow-hidden border-white border-opacity-20 rounded-xl ${ (visibleOne || visibleTwo)? 'invisible' : 'visible' }`}>
                <div className="carousel relative w-full h-full">
                   <div className="carousel-inner h-full flex">
-                     {slides.map((slide, index) => (
+                     { slides.map((slide, index) => (
                         <div
                            key={slide.title}
                            className={`transition ease-out duration-500 w-full h-full flex justify-center items-center bg-cover bg-no-repeat text-white absolute top-0 left-0 right-0 z-10 ${
